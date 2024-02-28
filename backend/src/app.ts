@@ -16,3 +16,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.get('/', (req: Request, res: Response) => {
     res.send("Hi! This is server listening :)");
 });
+
+app.get('/hey', (req: Request, res: Response) => {
+    res.send("Heyyyy! what uuuuup :)");
+});
