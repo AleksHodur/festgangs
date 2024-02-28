@@ -6,10 +6,6 @@ const app: Express = express();
 const port: number = 4000;
 const dbConnection: string = "mongodb+srv://dev:dev-password@festgangs-db.qawttms.mongodb.net/?retryWrites=true&w=majority&appName=festgangs-db";
 
-/* app.listen(port, () => {
-    console.log('Server is listening on port ' + port);
-}); */
-
 //connect to db
 mongoose.connect(dbConnection)
     .then(() => {
