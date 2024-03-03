@@ -1,6 +1,15 @@
 import mongoose, { Schema } from 'mongoose';
 
-const eventSchema: Schema = new Schema({
+interface IEvent {
+    title: string,
+    artist: string,
+    city: string,
+    country: string,
+    location: string,
+    date: Date
+}
+
+const eventSchema: Schema = new Schema<IEvent>({
     title: {
         type: String,
         required: true
@@ -27,4 +36,4 @@ const eventSchema: Schema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Event', eventSchema);
+export default mongoose.model('Event', eventSchema);
