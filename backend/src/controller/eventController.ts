@@ -14,7 +14,21 @@ const getEvents = async (req: Request, res: Response) => {
 }
 
 const createEvent = async (req: Request, res: Response) => {
+
+    let emptyFields: string[] = [];
+
+    for(let prop in req.body) {
+        if(!prop){
+            emptyFields.push(req.body[prop]);
+        }
+    }
+
+    if(emptyFields.length < 0){
+        return res.status(400).json({ error: 'Please fill in all fields', emptyFields });
+    }
+
     try{
+    
         const {title, artist, city, country, location, date} :{
             title: string;
             artist: string;
@@ -23,7 +37,7 @@ const createEvent = async (req: Request, res: Response) => {
             location: string;
             date: Date;
         } = req.body;
-    
+
         const event = await Event.create({title, artist, city, country, location, date});
         res.status(201).json(event);
         
