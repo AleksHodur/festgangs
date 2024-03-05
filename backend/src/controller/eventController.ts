@@ -15,15 +15,16 @@ const getEvents = async (req: Request, res: Response) => {
 
 const createEvent = async (req: Request, res: Response) => {
 
+    let body = req.body;
     let emptyFields: string[] = [];
 
-    for(let prop in req.body) {
-        if(!prop){
-            emptyFields.push(req.body[prop]);
+    for(let prop in body) {
+        if(!body[prop]){
+            emptyFields.push(prop);
         }
     }
 
-    if(emptyFields.length < 0){
+    if(emptyFields.length > 0){
         return res.status(400).json({ error: 'Please fill in all fields', emptyFields });
     }
 
