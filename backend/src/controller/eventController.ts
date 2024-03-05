@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import moongose from 'mongoose';
+import { Request, Response} from 'express';
+import mongoose from 'mongoose';
 import Event from '../model/eventModel.js';
 
 const getEvents = async (req: Request, res: Response) => {
@@ -13,13 +13,34 @@ const getEvents = async (req: Request, res: Response) => {
     }
 }
 
+const getEvent = async (req: Request, res: Response) => {
+
+    const { id } = req.params;
+    //const objectId = mongoose.Types.ObjectId;
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'No such workout'});
+    }
+
+    try{
+        const event = await Event.findById(id);
+        res.status(200).json(event);
+
+    }catch(error){
+        res.status(404).json({error});
+    }
+}
+
 const createEvent = async (req: Request, res: Response) => {
 
-    let body = req.body;
+    const body: Event = req.body as Event;
     let emptyFields: string[] = [];
 
     for(let prop in body) {
-        if(!body[prop]){
+
+        const propValue: any = body[prop as keyof Event];
+
+        if(!propValue){
             emptyFields.push(prop);
         }
     }
@@ -49,6 +70,7 @@ const createEvent = async (req: Request, res: Response) => {
 }
 
 const eventController = {
+    getEvent,
     getEvents,
     createEvent
 }
