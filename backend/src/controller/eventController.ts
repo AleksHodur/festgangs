@@ -4,7 +4,18 @@ import Event from '../model/eventModel.js';
 
 const getEvents = async (req: Request, res: Response) => {
 
-    const now = new Date();
+    const now: Date = new Date();
+
+    try{
+        const events = await Event.find({date: {$gte: now}}).sort({date: 1});
+        res.status(200).json(events);
+
+    }catch(error){
+        res.status(404).json({error});
+    }
+}
+
+const getAllEvents = async (req: Request, res: Response) => {
 
     try{
         const events = await Event.find({}).sort({date: 1});
@@ -121,6 +132,7 @@ const deleteEvent = async (req: Request, res: Response) => {
 
 const eventController = {
     getEvent,
+    getAllEvents,
     getEvents,
     createEvent,
     updateEvent,

@@ -5,6 +5,8 @@ const router: Router = Router();
 
 router.get('/', eventController.getEvents);
 
+router.get('/all', eventController.getAllEvents);
+
 router.get('/:id', eventController.getEvent);
 
 router.post('/', eventController.createEvent);
