@@ -4,8 +4,10 @@ import Event from '../model/eventModel.js';
 
 const getEvents = async (req: Request, res: Response) => {
 
+    const now = new Date();
+
     try{
-        const events = await Event.find({}).sort({data: -1});
+        const events = await Event.find({}).sort({date: 1});
         res.status(200).json(events);
 
     }catch(error){
