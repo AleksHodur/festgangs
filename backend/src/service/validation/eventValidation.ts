@@ -1,9 +1,11 @@
-const validateCity = (city : string) => {
-    return false;
+const validateProperNoun = (city : string) => {
+
+    const containsLetter = /[a-zA-Z]/g.test(city);  
+    return containsLetter;
 }
 
 const eventValidation = {
-    validateCity
+    validateProperNoun
 }
 
 export default eventValidation;
